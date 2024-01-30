@@ -1,6 +1,7 @@
 using ApiCatalogo.Context;
 using Microsoft.EntityFrameworkCore;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -10,8 +11,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection));
+string? mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
+var seila = builder.Configuration.GetConnectionString("DefaultConnection");
+Console.WriteLine(seila);
+builder.Services.AddDbContext<AppDbContext>(options => 
+    options.UseMySql(mySqlConnection, 
+    ServerVersion.AutoDetect(mySqlConnection)));
 
 var app = builder.Build();
 
