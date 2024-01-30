@@ -15,5 +15,8 @@
         public float Stock { get; set; }
 
         public DateTime DataRegister {  get; set; }
+
+        public int CategoryId { get; set; } // Mapear para a coluna CategoryId de Category
+        public Category? Category {  get; set; } // Relacionamento
     }
 }
