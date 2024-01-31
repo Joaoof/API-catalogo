@@ -25,5 +25,16 @@ namespace ApiCatalogo.Controllers
             }
             return products;
         }
+
+        [HttpGet("{id:int}")]
+        public ActionResult<Product> Get(int id)
+        {
+            var product = _context.Products.FirstOrDefault(p => p.ProductId == id); // localizando o primeiro elemento encontrado
+            if (product is null)
+            {
+                return NotFound("Product not found");
+            }
+            return product;
+        }
     }
 }
