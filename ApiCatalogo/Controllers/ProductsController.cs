@@ -50,5 +50,19 @@ namespace ApiCatalogo.Controllers
             return new CreatedAtRouteResult("GetProduct", new { id = product.ProductId }, product);
         }
 
+        [HttpPut("{id:int}")]
+        public ActionResult<Product> Put(int id, Product product)
+        {
+            if (id != product.ProductId)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(product).State = Microsoft.EntityFrameworkCore.EntityState.Modified; // o Entity vai identificar que essa entidade vai ser modificada
+            _context.SaveChanges();
+
+            return Ok(product);
+        }
+
     }
 }
