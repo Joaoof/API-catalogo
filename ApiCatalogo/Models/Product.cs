@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace ApiCatalogo.Models
 {
@@ -29,6 +30,8 @@ namespace ApiCatalogo.Models
         public DateTime DataRegister {  get; set; }
 
         public int CategoryId { get; set; } // Mapear para a coluna CategoryId de Category
+
+        [JsonIgnore] //ignorada na serelização
         public Category? Category {  get; set; } // Relacionamento
     }
 }
