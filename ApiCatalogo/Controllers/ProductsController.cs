@@ -19,7 +19,7 @@ namespace ApiCatalogo.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Product>> Get()
         {
-            var products = _context.Products.AsNoTracking().ToList(); // retorna uma lista de produtos
+            var products = _context.Products.Take(10).ToList(); // retorna uma lista de produtos
             if (products is null)
             {
                 return NotFound("Products not found");
