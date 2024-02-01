@@ -19,7 +19,14 @@ namespace ApiCatalogo.Controllers
         [HttpGet("products")]
         public ActionResult<IEnumerable<Category>> GetCategoriesProducts()
         {
-            return _context.Categories.Include(p => p.Products).Where(c => c.CategoryId <= 5).ToList(); //carregar os relacionamento
+            try
+            {
+                return _context.Categories.Include(p => p.Products).Where(c => c.CategoryId <= 5).ToList(); //carregar os relacionamento
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "There was a problem with the request");
+            }
         }
 
         [HttpGet]
@@ -37,13 +44,20 @@ namespace ApiCatalogo.Controllers
         [HttpGet("{id:int}", Name = "GetCategory")]
         public ActionResult<Category> GetById(int id)
         {
-            var category = _context.Categories.FirstOrDefault(c => c.CategoryId == id);
-            if (category is null)
+            try
             {
-                return NotFound("Category not found");
-            }
+                var category = _context.Categories.FirstOrDefault(c => c.CategoryId == id);
+                if (category is null)
+                {
+                    return NotFound($"Category com o id= {id} not found");
+                }
 
-            return category;
+                return category;
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "There was a problem with the request");
+            }
         }
 
         [HttpPost]
@@ -51,7 +65,7 @@ namespace ApiCatalogo.Controllers
         {
             if (category is null)
             {
-                return BadRequest();
+                return BadRequest("Invalid Data");
             }
             _context.Categories.Add(category);
             _context.SaveChanges();
@@ -64,7 +78,7 @@ namespace ApiCatalogo.Controllers
         {
             if (id != category.CategoryId)
             {
-                return BadRequest();
+                return BadRequest("Invalid Data");
             }
 
             _context.Entry(category).State = EntityState.Modified;
