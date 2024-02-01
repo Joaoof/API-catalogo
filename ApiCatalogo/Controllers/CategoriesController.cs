@@ -19,13 +19,13 @@ namespace ApiCatalogo.Controllers
         [HttpGet("products")]
         public ActionResult<IEnumerable<Category>> GetCategoriesProducts()
         {
-            return _context.Categories.Include(p => p.Products).ToList(); //carregar os relacionamento
+            return _context.Categories.AsNoTracking().Include(p => p.Products).ToList(); //carregar os relacionamento
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<Category>> Get()
         {
-            var categories = _context.Categories.ToList();
+            var categories = _context.Categories.AsNoTracking().ToList();
             if (categories is null)
             {
                 return NotFound("Categories not found");
