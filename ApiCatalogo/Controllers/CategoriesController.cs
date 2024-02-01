@@ -67,6 +67,7 @@ namespace ApiCatalogo.Controllers
             return Ok(category);
         }
 
+        [HttpDelete]
         public ActionResult<Category> Delete(int id)
         {
             var category = _context.Categories.FirstOrDefault(c => c.CategoryId == id);
