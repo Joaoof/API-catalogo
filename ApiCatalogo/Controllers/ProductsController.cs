@@ -64,5 +64,20 @@ namespace ApiCatalogo.Controllers
             return Ok(product);
         }
 
+        [HttpDelete]
+        public ActionResult<Product> Delete(int id)
+        {
+            var product = _context.Products.FirstOrDefault(p=> p.ProductId == id);
+
+            if (product is null)
+            {
+                return NotFound("Product not found");
+            }
+
+            _context.Products.Remove(product);
+            _context.SaveChanges();
+
+            return Ok(product);
+        }
     }
 }
