@@ -1,12 +1,11 @@
 ﻿using ApiCatalogo.Context;
 using ApiCatalogo.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiCatalogo.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class CategoriesController : ControllerBase
     {
@@ -68,7 +67,7 @@ namespace ApiCatalogo.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(category).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.Entry(category).State = EntityState.Modified;
             _context.SaveChanges();
 
             return Ok(category);
@@ -78,6 +77,8 @@ namespace ApiCatalogo.Controllers
         public ActionResult<Category> Delete(int id)
         {
             var category = _context.Categories.FirstOrDefault(c => c.CategoryId == id);
+
+            Console.WriteLine(category);
 
             if (category is null)
             {
