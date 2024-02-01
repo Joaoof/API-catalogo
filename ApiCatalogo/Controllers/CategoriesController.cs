@@ -27,5 +27,17 @@ namespace ApiCatalogo.Controllers
 
             return categories;
         }
+
+        [HttpGet("{id:int}", Name ="GetCategory")]
+        public ActionResult<Category> GetById(int id)
+        {
+            var category = _context.Categories.FirstOrDefault(c => c.CategoryId == id);
+            if (category is null)
+            {
+                return NotFound("Category not found");
+            }
+
+            return category;
+        }
     }
 }
