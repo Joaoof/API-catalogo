@@ -28,7 +28,7 @@ namespace ApiCatalogo.Controllers
             return categories;
         }
 
-        [HttpGet("{id:int}", Name ="GetCategory")]
+        [HttpGet("{id:int}", Name = "GetCategory")]
         public ActionResult<Category> GetById(int id)
         {
             var category = _context.Categories.FirstOrDefault(c => c.CategoryId == id);
@@ -51,6 +51,20 @@ namespace ApiCatalogo.Controllers
             _context.SaveChanges();
 
             return new CreatedAtRouteResult("GetCategory", new { id = category.CategoryId }, category);
+        }
+
+        [HttpPut("{id:int}")]
+        public ActionResult<Category> Put(int id, Category category)
+        {
+            if (id != category.CategoryId)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(category).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.SaveChanges();
+
+            return Ok(category);
         }
     }
 }
