@@ -39,5 +39,18 @@ namespace ApiCatalogo.Controllers
 
             return category;
         }
+
+        [HttpPost]
+        public ActionResult<Category> Post(Category category)
+        {
+            if (category is null)
+            {
+                return BadRequest();
+            }
+            _context.Categories.Add(category);
+            _context.SaveChanges();
+
+            return new CreatedAtRouteResult("GetCategory", new { id = category.CategoryId }, category);
+        }
     }
 }
