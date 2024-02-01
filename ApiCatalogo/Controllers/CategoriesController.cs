@@ -2,6 +2,7 @@
 using ApiCatalogo.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiCatalogo.Controllers
 {
@@ -14,6 +15,12 @@ namespace ApiCatalogo.Controllers
         public CategoriesController(AppDbContext context)
         {
             _context = context;
+        }
+
+        [HttpGet("products")]
+        public ActionResult<IEnumerable<Category>> GetCategoriesProducts()
+        {
+            return _context.Categories.Include(p => p.Products).ToList(); //carregar os relacionamento
         }
 
         [HttpGet]
