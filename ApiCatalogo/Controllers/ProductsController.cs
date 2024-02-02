@@ -27,7 +27,7 @@ namespace ApiCatalogo.Controllers
             return products;
         }
 
-        [HttpGet("{id:int}", Name="GetProduct")]
+        [HttpGet("{id:int:min(1)}", Name="GetProduct")]
         public ActionResult<Product> Get(int id)
         {
             var product = _context.Products.FirstOrDefault(p => p.ProductId == id); // localizando o primeiro elemento encontrado
