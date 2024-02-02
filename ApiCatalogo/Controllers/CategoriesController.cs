@@ -23,6 +23,12 @@ namespace ApiCatalogo.Controllers
             return myService.Salutation(name);
         }
 
+        [HttpGet("WithoutUsingFromServices/{name}")]
+        public ActionResult<string> GetSalutationWithoutUsingFromService(IMyService myService, string name)
+        {
+            return myService.Salutation(name);
+        }
+
         [HttpGet("products")]
         public ActionResult<IEnumerable<Category>> GetCategoriesProducts()
         {
