@@ -29,9 +29,8 @@ namespace ApiCatalogo.Controllers
         }
 
         [HttpGet("{id:int:min(1)}", Name="GetProduct")]
-        public async Task<ActionResult<Product>> Get(int id, [BindRequired] string name)
+        public async Task<ActionResult<Product>> Get(int id)
         {
-            var nameProduct = name;
             var product = await _context.Products.FirstOrDefaultAsync(p => p.ProductId == id); // localizando o primeiro elemento encontrado
             if (product is null)
             {

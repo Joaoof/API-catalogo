@@ -1,5 +1,6 @@
 ﻿using ApiCatalogo.Context;
 using ApiCatalogo.Models;
+using ApiCatalogo.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,12 @@ namespace ApiCatalogo.Controllers
         public CategoriesController(AppDbContext context)
         {
             _context = context;
+        }
+
+        [HttpGet("UsedFromServices/{name}")]
+        public ActionResult<string> GetSalutationFromServices([FromServices] IMyService myService, string name)
+        {
+            return myService.Salutation(name);
         }
 
         [HttpGet("products")]

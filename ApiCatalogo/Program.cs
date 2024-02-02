@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using ApiCatalogo.Context;
+using ApiCatalogo.Services;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -18,6 +19,8 @@ Console.WriteLine(seila);
 builder.Services.AddDbContext<AppDbContext>(options => 
     options.UseMySql(mySqlConnection, 
     ServerVersion.AutoDetect(mySqlConnection)));
+
+builder.Services.AddTransient<IMyService, MyService>();
 
 var app = builder.Build();
 
