@@ -1,6 +1,7 @@
 ﻿using ApiCatalogo.Context;
 using ApiCatalogo.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiCatalogo.Controllers
@@ -28,8 +29,9 @@ namespace ApiCatalogo.Controllers
         }
 
         [HttpGet("{id:int:min(1)}", Name="GetProduct")]
-        public async Task<ActionResult<Product>> Get(int id)
+        public async Task<ActionResult<Product>> Get(int id, [BindRequired] string name)
         {
+            var nameProduct = name;
             var product = await _context.Products.FirstOrDefaultAsync(p => p.ProductId == id); // localizando o primeiro elemento encontrado
             if (product is null)
             {
