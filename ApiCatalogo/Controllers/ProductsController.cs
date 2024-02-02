@@ -17,9 +17,9 @@ namespace ApiCatalogo.Controllers
         } // instância do context injetada no controlador
 
         [HttpGet]
-        public ActionResult<IEnumerable<Product>> Get()
+        public async Task<ActionResult<List<Product>>> Get()
         {
-            var products = _context.Products.Take(10).ToList(); // retorna uma lista de produtos
+            var products = await _context.Products.Take(10).ToListAsync(); // retorna uma lista de produtos
             if (products is null)
             {
                 return NotFound("Products not found");
@@ -28,9 +28,9 @@ namespace ApiCatalogo.Controllers
         }
 
         [HttpGet("{id:int:min(1)}", Name="GetProduct")]
-        public ActionResult<Product> Get(int id)
+        public async Task<ActionResult<Product>> Get(int id)
         {
-            var product = _context.Products.FirstOrDefault(p => p.ProductId == id); // localizando o primeiro elemento encontrado
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.ProductId == id); // localizando o primeiro elemento encontrado
             if (product is null)
             {
                 return NotFound("Product not found");
