@@ -6,8 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiCatalogo.Controllers
 {
-    [Route("[controller]")]
-    [ApiController]
+    [Route("api/[controller]")]
+    //[ApiController]
     public class ProductsController : ControllerBase
     {
         private readonly AppDbContext _context; // instância 
@@ -40,12 +40,14 @@ namespace ApiCatalogo.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Product> Post(Product product)
+        public ActionResult Post([FromBody]Product product)
         {
-            if(product is null)
+
+            if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
+          
             _context.Products.Add(product);
             _context.SaveChanges();
 
