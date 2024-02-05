@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using ApiCatalogo.Validations;
 
 namespace ApiCatalogo.Models
 {
     [Table("Products")]
-    public class Product
+    public class Product : IValidatableObject
     {
         [Key]
         public int ProductId { get; set; }
@@ -16,6 +17,7 @@ namespace ApiCatalogo.Models
 
         [Required]
         [StringLength(10, ErrorMessage = "The description must max {1} characters", MinimumLength = 5)]
+        //[FirstCapitalLetter]
         public string? Description { get; set; }
 
         [Required]
@@ -35,5 +37,24 @@ namespace ApiCatalogo.Models
 
         [JsonIgnore] //ignorada na serelização
         public Category? Category {  get; set; } // Relacionamento
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (!string.IsNullOrEmpty(this.Name))
+            {
+                var firstletter = this.Name[0].ToString();
+                if (firstletter != firstletter.ToUpper())
+                {
+                    yield return new ValidationResult("the first letter must be capitalized", new[] { nameof(this.Name) }
+                    );
+    
+                }
+            }
+
+            if (this.Stock <= 0)
+            {
+                yield return new ValidationResult("the stock must be greater than zero", new[] { nameof(this.Stock) });
+            }
+        }
     }
 }
