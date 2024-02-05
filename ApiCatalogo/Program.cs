@@ -35,12 +35,23 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    
 }
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
+
+app.Use(async (context, next) =>
+{
+    await next(context);
+});
 
 app.MapControllers();
 
-app.Run();
+app.Run(async (context) =>
+{
+    await context.Response.WriteAsync("Middleware final");
+});
