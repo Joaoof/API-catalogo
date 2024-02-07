@@ -23,7 +23,7 @@ namespace ApiCatalogo.Filters
         {
             _logger.LogInformation("### Executando -> OnActionExecuting");
             _logger.LogInformation("##########################################");
-            _logger.LogInformation($"{DateTime.Now.ToLongTimeString()}");
+            _logger.LogInformation($"{DateTime.Now.ToLongTimeString() }");
             _logger.LogInformation($"ModelState: {context.HttpContext.Response.StatusCode}");
             _logger.LogInformation("##########################################");
 
