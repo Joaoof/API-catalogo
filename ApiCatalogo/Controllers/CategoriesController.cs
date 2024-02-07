@@ -12,10 +12,12 @@ namespace ApiCatalogo.Controllers
     public class CategoriesController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly ILogger _logger;
 
-        public CategoriesController(AppDbContext context)
+        public CategoriesController(AppDbContext context, ILogger<CategoriesController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         [HttpGet("UsedFromServices/{name}")]
@@ -29,6 +31,8 @@ namespace ApiCatalogo.Controllers
         {
             try
             {
+
+                _logger.LogInformation(" ==================================GET api/categories/products"); 
                 return _context.Categories.Include(p => p.Products).Where(c => c.CategoryId <= 5).ToList(); //carregar os relacionamento
             }
             catch (Exception)
@@ -41,6 +45,8 @@ namespace ApiCatalogo.Controllers
         [ServiceFilter(typeof(ApiLoggingFilter))]
         public ActionResult<IEnumerable<Category>> Get()
         {
+            _logger.LogInformation(" ==================================GET api/categories");
+
             var categories = _context.Categories.AsNoTracking().ToList();
             if (categories is null)
             {
@@ -56,8 +62,11 @@ namespace ApiCatalogo.Controllers
             try
             {
                 var category = _context.Categories.FirstOrDefault(c => c.CategoryId == id);
+                _logger.LogInformation($"==================================GET api/categories/id = {id} ========================");
+
                 if (category is null)
                 {
+                    _logger.LogInformation($"==================================GET api/categories/id = {id} NOT FOUND ========================");
                     return NotFound($"Category com o id= {id} not found");
                 }
 
