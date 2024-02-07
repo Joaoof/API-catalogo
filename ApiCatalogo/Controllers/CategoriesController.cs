@@ -58,28 +58,15 @@ namespace ApiCatalogo.Controllers
         [HttpGet("{id:int}", Name = "GetCategory")]
         public ActionResult<Category> GetById(int id)
         {
-            try
-            {
+            
                 var category = _context.Categories.FirstOrDefault(c => c.CategoryId == id);
                 if (category is null)
                 {
-                    _logger.LogWarning("====================================================================");
                     _logger.LogWarning($"Category with id = {id} not found");
-                    _logger.LogWarning("====================================================================");
                     return NotFound($"Category com o id= {id} not found");
                 }
 
-                return category;
-            }
-            catch (Exception)
-            {
-                _logger.LogError("====================================================================");
-                 _logger.LogError($"{StatusCodes.Status500InternalServerError}, There was a problem with the request");
-                _logger.LogWarning("====================================================================");
-
-                return StatusCode(StatusCodes.Status500InternalServerError, "There was a problem with the request");
-
-            }
+                return Ok(category);
         }
 
         [HttpPost]
@@ -100,6 +87,7 @@ namespace ApiCatalogo.Controllers
         {
             if (id != category.CategoryId)
             {
+                _logger.LogWarning($"Invalid Data");
                 return BadRequest("Invalid Data");
             }
 
@@ -118,6 +106,7 @@ namespace ApiCatalogo.Controllers
 
             if (category is null)
             {
+                _logger.LogWarning($"Category with id= {id} not found");
                 return NotFound("Category not found");
             }
 
