@@ -1,4 +1,5 @@
 ﻿using ApiCatalogo.Context;
+using ApiCatalogo.Filters;
 using ApiCatalogo.Models;
 using ApiCatalogo.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -37,6 +38,7 @@ namespace ApiCatalogo.Controllers
         }
 
         [HttpGet]
+        [ServiceFilter(typeof(ApiLoggingFilter))]
         public ActionResult<IEnumerable<Category>> Get()
         {
             var categories = _context.Categories.AsNoTracking().ToList();
