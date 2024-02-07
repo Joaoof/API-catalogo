@@ -27,13 +27,13 @@ namespace ApiCatalogo.Controllers
         }
 
         [HttpGet("products")]
-        public ActionResult<IEnumerable<Category>> GetCategoriesProducts()
+        public async Task<ActionResult<IEnumerable<Category>>> GetCategoriesProducts()
         {
             try
             {
 
                 _logger.LogInformation(" ==================================GET api/categories/products"); 
-                return _context.Categories.Include(p => p.Products).Where(c => c.CategoryId <= 5).ToList(); //carregar os relacionamento
+                return await _context.Categories.Include(p => p.Products).Where(c => c.CategoryId <= 5).ToListAsync(); //carregar os relacionamento
             }
             catch (Exception)
             {
@@ -43,11 +43,10 @@ namespace ApiCatalogo.Controllers
 
         [HttpGet]
         [ServiceFilter(typeof(ApiLoggingFilter))]
-        public ActionResult<IEnumerable<Category>> Get()
+        public async Task<ActionResult<IEnumerable<Category>>> Get()
         {
-            _logger.LogInformation(" ==================================GET api/categories");
 
-            var categories = _context.Categories.AsNoTracking().ToList();
+            var categories = await _context.Categories.AsNoTracking().ToListAsync();
             if (categories is null)
             {
                 return NotFound("Categories not found");
@@ -62,11 +61,11 @@ namespace ApiCatalogo.Controllers
             try
             {
                 var category = _context.Categories.FirstOrDefault(c => c.CategoryId == id);
-                _logger.LogInformation($"==================================GET api/categories/id = {id} ========================");
-
                 if (category is null)
                 {
-                    _logger.LogInformation($"==================================GET api/categories/id = {id} NOT FOUND ========================");
+                    _logger.LogWarning("====================================================================");
+                    _logger.LogWarning($"Category with id = {id} not found");
+                    _logger.LogWarning("====================================================================");
                     return NotFound($"Category com o id= {id} not found");
                 }
 
@@ -74,7 +73,12 @@ namespace ApiCatalogo.Controllers
             }
             catch (Exception)
             {
+                _logger.LogError("====================================================================");
+                 _logger.LogError($"{StatusCodes.Status500InternalServerError}, There was a problem with the request");
+                _logger.LogWarning("====================================================================");
+
                 return StatusCode(StatusCodes.Status500InternalServerError, "There was a problem with the request");
+
             }
         }
 

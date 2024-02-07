@@ -68,3 +68,5 @@ SELECT `p`.`ProductId`, `p`.`CategoryId`, `p`.`DataRegister`, `p`.`Description`,
 FROM `Products` AS `p`
 WHERE `p`.`ProductId` = @__id_0
 LIMIT 1
+Error: 1 - An unhandled exception has occurred while executing the request.
+Error: 1 - An unhandled exception has occurred while executing the request.
