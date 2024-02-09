@@ -1,4 +1,5 @@
-﻿using ApiCatalogo.Context;
+﻿using System.Xml.Linq;
+using ApiCatalogo.Context;
 using ApiCatalogo.Filters;
 using ApiCatalogo.Models;
 using ApiCatalogo.Repositories;
@@ -22,19 +23,16 @@ namespace ApiCatalogo.Controllers
         }
 
         [HttpGet("products")]
-        public async Task<ActionResult<IEnumerable<Category>>> GetCategoriesProducts()
+        public ActionResult<IEnumerable<Category>> GetCategoriesProducts(Product Products, int CategoryId)
         {
-            try
-            {
 
-                _logger.LogInformation(" ==================================GET api/categories/products"); 
-                return await _repository.Categories.Include(p => p.Products).Where(c => c.CategoryId <= 5).ToListAsync(); //carregar os relacionamento
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "There was a problem with the request");
-            }
-        }
+            var categoriesProducts = _repository.GetCategoriesProd(Products, CategoryId);
+            return Ok(categoriesProducts);
+            //_logger.LogInformation(" ==================================GET api/categories/products"); 
+            //return await _repository.Categories.Include(p => p.Products).Where(c => c.CategoryId <= 5).ToListAsync(); //carregar os relacionamento
+
+        } 
+         
 
         [HttpGet]
         public  ActionResult<IEnumerable<Category>> Get()

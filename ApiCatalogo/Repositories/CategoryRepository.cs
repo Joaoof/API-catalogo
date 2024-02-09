@@ -1,5 +1,7 @@
 ﻿using ApiCatalogo.Context;
 using ApiCatalogo.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiCatalogo.Repositories
 {
@@ -10,6 +12,11 @@ namespace ApiCatalogo.Repositories
         public CategoryRepository(AppDbContext context)
         {
             _context = context;
+        }
+
+        public IEnumerable<Category> GetCategoriesProd(Product Products, int CategoryId)
+        {
+            return _context.Categories.Include(p => p.Products).Where(c => c.CategoryId <= 5).ToList();
         }
 
         public IEnumerable<Category> GetCategories()
