@@ -1,6 +1,7 @@
 ﻿using ApiCatalogo.Context;
 using ApiCatalogo.Filters;
 using ApiCatalogo.Models;
+using ApiCatalogo.Repositories;
 using ApiCatalogo.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,19 +12,13 @@ namespace ApiCatalogo.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly ICategoryRepository _repository;
         private readonly ILogger _logger;
 
-        public CategoriesController(AppDbContext context, ILogger<CategoriesController> logger)
+        public CategoriesController(ICategoryRepository repository, ILogger<CategoriesController> logger)
         {
-            _context = context;
+            _repository = repository;
             _logger = logger;
-        }
-
-        [HttpGet("UsedFromServices/{name}")]
-        public ActionResult<string> GetSalutationFromServices([FromServices] IMyService myService, string name)
-        {
-            return myService.Salutation(name);
         }
 
         [HttpGet("products")]
@@ -33,7 +28,7 @@ namespace ApiCatalogo.Controllers
             {
 
                 _logger.LogInformation(" ==================================GET api/categories/products"); 
-                return await _context.Categories.Include(p => p.Products).Where(c => c.CategoryId <= 5).ToListAsync(); //carregar os relacionamento
+                return await _repository.Categories.Include(p => p.Products).Where(c => c.CategoryId <= 5).ToListAsync(); //carregar os relacionamento
             }
             catch (Exception)
             {
@@ -42,24 +37,20 @@ namespace ApiCatalogo.Controllers
         }
 
         [HttpGet]
-        [ServiceFilter(typeof(ApiLoggingFilter))]
-        public async Task<ActionResult<IEnumerable<Category>>> Get()
+        public  ActionResult<IEnumerable<Category>> Get()
         {
 
-            var categories = await _context.Categories.AsNoTracking().ToListAsync();
-            if (categories is null)
-            {
-                return NotFound("Categories not found");
-            }
+           var categories = _repository.GetCategories();
 
-            return categories;
+            return Ok(categories);
         }
 
         [HttpGet("{id:int}", Name = "GetCategory")]
         public ActionResult<Category> GetById(int id)
         {
-            
-                var category = _context.Categories.FirstOrDefault(c => c.CategoryId == id);
+
+                var category = _repository.GetCategory(id);  
+       
                 if (category is null)
                 {
                     _logger.LogWarning($"Category with id = {id} not found");
@@ -74,12 +65,13 @@ namespace ApiCatalogo.Controllers
         {
             if (category is null)
             {
+                _logger.LogWarning($"Invalid Data");
                 return BadRequest("Invalid Data");
             }
-            _context.Categories.Add(category);
-            _context.SaveChanges();
 
-            return new CreatedAtRouteResult("GetCategory", new { id = category.CategoryId }, category);
+            var createCategory= _repository.Create(category);
+
+            return new CreatedAtRouteResult("GetCategory", new { id = createCategory.CategoryId }, category);
         }
 
         [HttpPut("{id:int}")]
@@ -91,18 +83,15 @@ namespace ApiCatalogo.Controllers
                 return BadRequest("Invalid Data");
             }
 
-            _context.Entry(category).State = EntityState.Modified;
-            _context.SaveChanges();
+            var categoryUpdate = _repository.Update(category);
 
-            return Ok(category);
+            return Ok(categoryUpdate);
         }
 
         [HttpDelete]
         public ActionResult<Category> Delete(int id)
         {
-            var category = _context.Categories.FirstOrDefault(c => c.CategoryId == id);
-
-            Console.WriteLine(category);
+            var category = _repository.GetCategory(id);
 
             if (category is null)
             {
@@ -110,10 +99,8 @@ namespace ApiCatalogo.Controllers
                 return NotFound("Category not found");
             }
 
-            _context.Categories.Remove(category);
-            _context.SaveChanges();
-
-            return Ok(category);
+            var categoryDeleted = _repository.Delete(id);
+            return Ok(categoryDeleted);
         }
     }
 }
