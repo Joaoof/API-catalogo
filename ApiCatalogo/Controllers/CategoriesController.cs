@@ -23,14 +23,11 @@ namespace ApiCatalogo.Controllers
         }
 
         [HttpGet("products")]
-        public ActionResult<IEnumerable<Category>> GetCategoriesProducts(Product Products, int CategoryId)
+        public ActionResult<IEnumerable<Category>> GetCategoriesProducts(int CategoryId)
         {
 
-            var categoriesProducts = _repository.GetCategoriesProd(Products, CategoryId);
+            var categoriesProducts = _repository.GetCategoriesProd(CategoryId);
             return Ok(categoriesProducts);
-            //_logger.LogInformation(" ==================================GET api/categories/products"); 
-            //return await _repository.Categories.Include(p => p.Products).Where(c => c.CategoryId <= 5).ToListAsync(); //carregar os relacionamento
-
         } 
          
 

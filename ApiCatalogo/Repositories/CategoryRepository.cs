@@ -14,7 +14,7 @@ namespace ApiCatalogo.Repositories
             _context = context;
         }
 
-        public IEnumerable<Category> GetCategoriesProd(Product Products, int CategoryId)
+        public IEnumerable<Category> GetCategoriesProd(int CategoryId)
         {
             return _context.Categories.Include(p => p.Products).Where(c => c.CategoryId <= 5).ToList();
         }
