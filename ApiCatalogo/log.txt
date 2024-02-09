@@ -98,3 +98,6 @@ FROM `Categories` AS `c`
 LEFT JOIN `Products` AS `p` ON `c`.`CategoryId` = `p`.`CategoryId`
 WHERE `c`.`CategoryId` <= 5
 ORDER BY `c`.`CategoryId`
+Information: 20101 - Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoryId`, `c`.`ImageUrl`, `c`.`Name`
+FROM `Categories` AS `c`
