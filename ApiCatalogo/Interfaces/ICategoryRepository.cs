@@ -2,17 +2,8 @@
 
 namespace ApiCatalogo.Interfaces
 {
-    public interface ICategoryRepository
+    public interface ICategoryRepository : IRepository<Category>
     {
-        IEnumerable<Category> GetCategoriesProd(int CategoryId);
-        IEnumerable<Category> GetCategories();
-
-        Category GetCategory(int id);
-
-        Category Create(Category category);
-
-        Category Update(Category category);
-
-        Category Delete(int id);
+        
     }
 }
