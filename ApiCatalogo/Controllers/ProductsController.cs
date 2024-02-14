@@ -11,17 +11,32 @@ namespace ApiCatalogo.Controllers
     //[ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly IProductRepository _repository; // instância 
+        private readonly IProductRepository _productRepository; // instância 
+        private readonly IRepository<Product> _repository;
 
-        public ProductsController(IProductRepository repository)
-        {
+        public ProductsController(IRepository<Product> repository, IProductRepository productRepository)
+        { 
+            _productRepository = productRepository;
             _repository = repository;
         } // instância do context injetada no controlador
+
+        [HttpGet("products/{id}")]
+        public ActionResult <IEnumerable<Product>> GetProductsCategory(int id)
+        {
+            var product = _productRepository.GetProductsCategories(id);
+
+            if (product is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(product);
+        }
 
         [HttpGet]
         public ActionResult<IEnumerable<Product>> Get()
         {
-            var products = _repository.GetProducts().ToList();
+            var products = _repository.GetAll();
 
             if (products is null)
             {
@@ -34,7 +49,7 @@ namespace ApiCatalogo.Controllers
         [HttpGet("{id:int:min(1)}", Name="GetProduct")]
         public ActionResult<Product> Get(int id)
         {
-            var product = _repository.GetProduct(id);
+            var product = _repository.Get(c => c.ProductId == id);
 
             if (product is null)
             {
@@ -66,29 +81,25 @@ namespace ApiCatalogo.Controllers
                 return BadRequest();
             }
 
-            bool att = _repository.Update(product);
+            var productAtt = _repository.Update(product);
 
-            if (att)
-            {
-                return Ok(product);
-            } else
-            {
-                return StatusCode(500, $"Failed to update product id = {id}");
-            }
+            return Ok(productAtt);
         }
 
         [HttpDelete]
         public ActionResult<Product> Delete(int id)
         {
-            bool delete = _repository.Delete(id);
-
-            if (delete)
+            var product = _repository.Get(c => c.ProductId == id);
+              
+            if (product is null)
             {
-                return Ok($"Product id = {id} has been deleted");
-            } else
-            {
-                return StatusCode(500, $"Failed to delete product id={id}");
+                return NotFound("Product not found......");
             }
+
+            var productDelete = _repository.Delete(product);
+            
+            return Ok(productDelete);
+
         }
     }
 }

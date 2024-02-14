@@ -9,8 +9,8 @@ namespace ApiCatalogo.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly ICategoryRepository _repository;
-        private readonly ILogger _logger;
+        private readonly IRepository<Category> _repository;
+        private readonly ILogger<CategoriesController> _logger;
 
         public CategoriesController(ICategoryRepository repository, ILogger<CategoriesController> logger)
         {
@@ -18,20 +18,11 @@ namespace ApiCatalogo.Controllers
             _logger = logger;
         }
 
-        [HttpGet("products")]
-        public ActionResult<IEnumerable<Category>> GetCategoriesProducts(int CategoryId)
-        {
-
-            var categoriesProducts = _repository.GetCategoriesProd(5);
-            return Ok(categoriesProducts);
-        } 
-         
-
         [HttpGet]
         public  ActionResult<IEnumerable<Category>> Get()
         {
 
-           var categories = _repository.GetCategories();
+           var categories = _repository.GetAll();
 
             return Ok(categories);
         }
@@ -40,7 +31,7 @@ namespace ApiCatalogo.Controllers
         public ActionResult<Category> GetById(int id)
         {
 
-                var category = _repository.GetCategory(id);  
+                var category = _repository.Get(c => c.CategoryId == id);  
        
                 if (category is null)
                 {
@@ -82,7 +73,7 @@ namespace ApiCatalogo.Controllers
         [HttpDelete]
         public ActionResult<Category> Delete(int id)
         {
-            var category = _repository.GetCategory(id);
+            var category = _repository.Get(c => c.CategoryId == id) ;
 
             if (category is null)
             {
@@ -90,7 +81,7 @@ namespace ApiCatalogo.Controllers
                 return NotFound("Category not found");
             }
 
-            var categoryDeleted = _repository.Delete(id);
+            var categoryDeleted = _repository.Delete(category);
             return Ok(categoryDeleted);
         }
     }
