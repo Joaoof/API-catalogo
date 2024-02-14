@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiCatalogo.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     //[ApiController]
     public class ProductsController : ControllerBase
     {
@@ -45,7 +45,7 @@ namespace ApiCatalogo.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post(Product product)
+        public ActionResult Post([FromBody]Product product)
         {
 
             if (product is null)
@@ -59,7 +59,7 @@ namespace ApiCatalogo.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public ActionResult<Product> Put(int id, Product product)
+        public ActionResult Put(int id, [FromBody]Product product)
         {
             if (id != product.ProductId)
             {
@@ -84,7 +84,7 @@ namespace ApiCatalogo.Controllers
 
             if (delete)
             {
-                return Ok($"Product id ={id} has been deleted");
+                return Ok($"Product id = {id} has been deleted");
             } else
             {
                 return StatusCode(500, $"Failed to delete product id={id}");
