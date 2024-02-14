@@ -1,5 +1,5 @@
-﻿using ApiCatalogo.Models;
-using ApiCatalogo.Repositories;
+﻿using ApiCatalogo.Interfaces;
+using ApiCatalogo.Models;
 using Microsoft.AspNetCore.Mvc;
 
 

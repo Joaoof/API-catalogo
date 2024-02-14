@@ -1,19 +1,18 @@
 ﻿using ApiCatalogo.Models;
 
-namespace ApiCatalogo.Repositories
+namespace ApiCatalogo.Interfaces
 {
     public interface ICategoryRepository
     {
-       IEnumerable<Category> GetCategoriesProd(int CategoryId);
-       IEnumerable<Category> GetCategories();
+        IEnumerable<Category> GetCategoriesProd(int CategoryId);
+        IEnumerable<Category> GetCategories();
 
         Category GetCategory(int id);
 
         Category Create(Category category);
-         
+
         Category Update(Category category);
 
         Category Delete(int id);
     }
 }
- 

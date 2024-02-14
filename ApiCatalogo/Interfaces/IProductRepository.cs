@@ -1,7 +1,7 @@
 ﻿using ApiCatalogo.Models;
 using Microsoft.EntityFrameworkCore.Update.Internal;
 
-namespace ApiCatalogo.Repositories
+namespace ApiCatalogo.Interfaces
 {
     public interface IProductRepository
     {

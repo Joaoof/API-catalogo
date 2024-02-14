@@ -2,6 +2,7 @@ using System.Text.Json.Serialization;
 using ApiCatalogo.Context;
 using ApiCatalogo.Extensions;
 using ApiCatalogo.Filters;
+using ApiCatalogo.Interfaces;
 using ApiCatalogo.Logging;
 using ApiCatalogo.Repositories;
 using ApiCatalogo.Services;

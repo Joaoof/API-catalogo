@@ -1,6 +1,6 @@
 ﻿using ApiCatalogo.Context;
+using ApiCatalogo.Interfaces;
 using ApiCatalogo.Models;
-using ApiCatalogo.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
