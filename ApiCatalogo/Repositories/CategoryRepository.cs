@@ -23,7 +23,7 @@ namespace ApiCatalogo.Repositories
         {
            return _context.Categories.ToList(); 
         }
-        public Category GetCategory(int id)
+        public Category GetCategory(int id) 
         {
             return _context.Categories.FirstOrDefault(c => c.CategoryId == id);
         }

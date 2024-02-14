@@ -1,11 +1,7 @@
-﻿using System.Xml.Linq;
-using ApiCatalogo.Context;
-using ApiCatalogo.Filters;
-using ApiCatalogo.Models;
+﻿using ApiCatalogo.Models;
 using ApiCatalogo.Repositories;
-using ApiCatalogo.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace ApiCatalogo.Controllers
 {
@@ -26,7 +22,7 @@ namespace ApiCatalogo.Controllers
         public ActionResult<IEnumerable<Category>> GetCategoriesProducts(int CategoryId)
         {
 
-            var categoriesProducts = _repository.GetCategoriesProd(CategoryId);
+            var categoriesProducts = _repository.GetCategoriesProd(5);
             return Ok(categoriesProducts);
         } 
          

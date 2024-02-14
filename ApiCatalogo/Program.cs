@@ -7,6 +7,7 @@ using ApiCatalogo.Repositories;
 using ApiCatalogo.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);

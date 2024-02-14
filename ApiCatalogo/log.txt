@@ -101,3 +101,208 @@ ORDER BY `c`.`CategoryId`
 Information: 20101 - Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
 SELECT `c`.`CategoryId`, `c`.`ImageUrl`, `c`.`Name`
 FROM `Categories` AS `c`
+Information: 20101 - Executed DbCommand (33ms) [Parameters=[@p0='?' (Size = 300), @p1='?' (Size = 80)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `Categories` (`ImageUrl`, `Name`)
+VALUES (@p0, @p1);
+SELECT `CategoryId`
+FROM `Categories`
+WHERE ROW_COUNT() = 1 AND `CategoryId` = LAST_INSERT_ID();
+Information: 20101 - Executed DbCommand (2ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoryId`, `c`.`ImageUrl`, `c`.`Name`
+FROM `Categories` AS `c`
+WHERE `c`.`CategoryId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (4ms) [Parameters=[@p2='?' (DbType = Int32), @p0='?' (Size = 300), @p1='?' (Size = 80)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+UPDATE `Categories` SET `ImageUrl` = @p0, `Name` = @p1
+WHERE `CategoryId` = @p2;
+SELECT ROW_COUNT();
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoryId`, `c`.`ImageUrl`, `c`.`Name`
+FROM `Categories` AS `c`
+WHERE `c`.`CategoryId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoryId`, `c`.`ImageUrl`, `c`.`Name`
+FROM `Categories` AS `c`
+WHERE `c`.`CategoryId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (5ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+DELETE FROM `Categories`
+WHERE `CategoryId` = @p0;
+SELECT ROW_COUNT();
+Information: 14 - Now listening on: https://localhost:7033
+Information: 14 - Now listening on: http://localhost:5240
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\joaod\source\repos\ApiCatalogo\ApiCatalogo
+Information: 14 - Now listening on: https://localhost:7033
+Information: 14 - Now listening on: http://localhost:5240
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\joaod\source\repos\ApiCatalogo\ApiCatalogo
+Information: 14 - Now listening on: https://localhost:7033
+Information: 14 - Now listening on: http://localhost:5240
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\joaod\source\repos\ApiCatalogo\ApiCatalogo
+Information: 14 - Now listening on: https://localhost:7033
+Information: 14 - Now listening on: http://localhost:5240
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\joaod\source\repos\ApiCatalogo\ApiCatalogo
+Information: 14 - Now listening on: https://localhost:7033
+Information: 14 - Now listening on: http://localhost:5240
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\joaod\source\repos\ApiCatalogo\ApiCatalogo
+Information: 14 - Now listening on: https://localhost:7033
+Information: 14 - Now listening on: http://localhost:5240
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\joaod\source\repos\ApiCatalogo\ApiCatalogo
+Error: 1 - An unhandled exception has occurred while executing the request.
+Error: 1 - An unhandled exception has occurred while executing the request.
+Information: 14 - Now listening on: https://localhost:7033
+Information: 14 - Now listening on: http://localhost:5240
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\joaod\source\repos\ApiCatalogo\ApiCatalogo
+Information: 20101 - Executed DbCommand (32ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoryId`, `c`.`ImageUrl`, `c`.`Name`, `p`.`ProductId`, `p`.`CategoryId`, `p`.`DataRegister`, `p`.`Description`, `p`.`ImageUrl`, `p`.`Name`, `p`.`Price`, `p`.`Stock`
+FROM `Categories` AS `c`
+LEFT JOIN `Products` AS `p` ON `c`.`CategoryId` = `p`.`CategoryId`
+WHERE `c`.`CategoryId` <= 5
+ORDER BY `c`.`CategoryId`
+Information: 20101 - Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoryId`, `c`.`ImageUrl`, `c`.`Name`, `p`.`ProductId`, `p`.`CategoryId`, `p`.`DataRegister`, `p`.`Description`, `p`.`ImageUrl`, `p`.`Name`, `p`.`Price`, `p`.`Stock`
+FROM `Categories` AS `c`
+LEFT JOIN `Products` AS `p` ON `c`.`CategoryId` = `p`.`CategoryId`
+WHERE `c`.`CategoryId` <= 5
+ORDER BY `c`.`CategoryId`
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoryId`, `c`.`ImageUrl`, `c`.`Name`
+FROM `Categories` AS `c`
+Information: 14 - Now listening on: https://localhost:7033
+Information: 14 - Now listening on: http://localhost:5240
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\joaod\source\repos\ApiCatalogo\ApiCatalogo
+Information: 20101 - Executed DbCommand (15ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoryId`, `c`.`ImageUrl`, `c`.`Name`, `p`.`ProductId`, `p`.`CategoryId`, `p`.`DataRegister`, `p`.`Description`, `p`.`ImageUrl`, `p`.`Name`, `p`.`Price`, `p`.`Stock`
+FROM `Categories` AS `c`
+LEFT JOIN `Products` AS `p` ON `c`.`CategoryId` = `p`.`CategoryId`
+WHERE `c`.`CategoryId` <= 5
+ORDER BY `c`.`CategoryId`
+Information: 20101 - Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoryId`, `c`.`ImageUrl`, `c`.`Name`, `p`.`ProductId`, `p`.`CategoryId`, `p`.`DataRegister`, `p`.`Description`, `p`.`ImageUrl`, `p`.`Name`, `p`.`Price`, `p`.`Stock`
+FROM `Categories` AS `c`
+LEFT JOIN `Products` AS `p` ON `c`.`CategoryId` = `p`.`CategoryId`
+WHERE `c`.`CategoryId` <= 5
+ORDER BY `c`.`CategoryId`
+Information: 20101 - Executed DbCommand (46ms) [Parameters=[@p0='?' (Size = 300), @p1='?' (Size = 80)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `Categories` (`ImageUrl`, `Name`)
+VALUES (@p0, @p1);
+SELECT `CategoryId`
+FROM `Categories`
+WHERE ROW_COUNT() = 1 AND `CategoryId` = LAST_INSERT_ID();
+Information: 20101 - Executed DbCommand (2ms) [Parameters=[@p0='?' (Size = 300), @p1='?' (Size = 80)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `Categories` (`ImageUrl`, `Name`)
+VALUES (@p0, @p1);
+SELECT `CategoryId`
+FROM `Categories`
+WHERE ROW_COUNT() = 1 AND `CategoryId` = LAST_INSERT_ID();
+Information: 20101 - Executed DbCommand (2ms) [Parameters=[@p0='?' (Size = 300), @p1='?' (Size = 80)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `Categories` (`ImageUrl`, `Name`)
+VALUES (@p0, @p1);
+SELECT `CategoryId`
+FROM `Categories`
+WHERE ROW_COUNT() = 1 AND `CategoryId` = LAST_INSERT_ID();
+Information: 20101 - Executed DbCommand (2ms) [Parameters=[@p0='?' (Size = 300), @p1='?' (Size = 80)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `Categories` (`ImageUrl`, `Name`)
+VALUES (@p0, @p1);
+SELECT `CategoryId`
+FROM `Categories`
+WHERE ROW_COUNT() = 1 AND `CategoryId` = LAST_INSERT_ID();
+Information: 20101 - Executed DbCommand (6ms) [Parameters=[@p0='?' (Size = 300), @p1='?' (Size = 80)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `Categories` (`ImageUrl`, `Name`)
+VALUES (@p0, @p1);
+SELECT `CategoryId`
+FROM `Categories`
+WHERE ROW_COUNT() = 1 AND `CategoryId` = LAST_INSERT_ID();
+Information: 20101 - Executed DbCommand (2ms) [Parameters=[@p0='?' (Size = 300), @p1='?' (Size = 80)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `Categories` (`ImageUrl`, `Name`)
+VALUES (@p0, @p1);
+SELECT `CategoryId`
+FROM `Categories`
+WHERE ROW_COUNT() = 1 AND `CategoryId` = LAST_INSERT_ID();
+Information: 20101 - Executed DbCommand (2ms) [Parameters=[@p0='?' (Size = 300), @p1='?' (Size = 80)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `Categories` (`ImageUrl`, `Name`)
+VALUES (@p0, @p1);
+SELECT `CategoryId`
+FROM `Categories`
+WHERE ROW_COUNT() = 1 AND `CategoryId` = LAST_INSERT_ID();
+Information: 20101 - Executed DbCommand (3ms) [Parameters=[@p0='?' (Size = 300), @p1='?' (Size = 80)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `Categories` (`ImageUrl`, `Name`)
+VALUES (@p0, @p1);
+SELECT `CategoryId`
+FROM `Categories`
+WHERE ROW_COUNT() = 1 AND `CategoryId` = LAST_INSERT_ID();
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[@p0='?' (Size = 300), @p1='?' (Size = 80)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `Categories` (`ImageUrl`, `Name`)
+VALUES (@p0, @p1);
+SELECT `CategoryId`
+FROM `Categories`
+WHERE ROW_COUNT() = 1 AND `CategoryId` = LAST_INSERT_ID();
+Information: 20101 - Executed DbCommand (2ms) [Parameters=[@p0='?' (Size = 300), @p1='?' (Size = 80)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `Categories` (`ImageUrl`, `Name`)
+VALUES (@p0, @p1);
+SELECT `CategoryId`
+FROM `Categories`
+WHERE ROW_COUNT() = 1 AND `CategoryId` = LAST_INSERT_ID();
+Information: 20101 - Executed DbCommand (2ms) [Parameters=[@p0='?' (Size = 300), @p1='?' (Size = 80)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `Categories` (`ImageUrl`, `Name`)
+VALUES (@p0, @p1);
+SELECT `CategoryId`
+FROM `Categories`
+WHERE ROW_COUNT() = 1 AND `CategoryId` = LAST_INSERT_ID();
+Information: 20101 - Executed DbCommand (2ms) [Parameters=[@p0='?' (Size = 300), @p1='?' (Size = 80)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `Categories` (`ImageUrl`, `Name`)
+VALUES (@p0, @p1);
+SELECT `CategoryId`
+FROM `Categories`
+WHERE ROW_COUNT() = 1 AND `CategoryId` = LAST_INSERT_ID();
+Information: 20101 - Executed DbCommand (6ms) [Parameters=[@p0='?' (Size = 300), @p1='?' (Size = 80)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `Categories` (`ImageUrl`, `Name`)
+VALUES (@p0, @p1);
+SELECT `CategoryId`
+FROM `Categories`
+WHERE ROW_COUNT() = 1 AND `CategoryId` = LAST_INSERT_ID();
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[@p0='?' (Size = 300), @p1='?' (Size = 80)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `Categories` (`ImageUrl`, `Name`)
+VALUES (@p0, @p1);
+SELECT `CategoryId`
+FROM `Categories`
+WHERE ROW_COUNT() = 1 AND `CategoryId` = LAST_INSERT_ID();
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[@p0='?' (Size = 300), @p1='?' (Size = 80)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `Categories` (`ImageUrl`, `Name`)
+VALUES (@p0, @p1);
+SELECT `CategoryId`
+FROM `Categories`
+WHERE ROW_COUNT() = 1 AND `CategoryId` = LAST_INSERT_ID();
+Information: 20101 - Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoryId`, `c`.`ImageUrl`, `c`.`Name`, `p`.`ProductId`, `p`.`CategoryId`, `p`.`DataRegister`, `p`.`Description`, `p`.`ImageUrl`, `p`.`Name`, `p`.`Price`, `p`.`Stock`
+FROM `Categories` AS `c`
+LEFT JOIN `Products` AS `p` ON `c`.`CategoryId` = `p`.`CategoryId`
+WHERE `c`.`CategoryId` <= 5
+ORDER BY `c`.`CategoryId`
+Information: 20101 - Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoryId`, `c`.`ImageUrl`, `c`.`Name`, `p`.`ProductId`, `p`.`CategoryId`, `p`.`DataRegister`, `p`.`Description`, `p`.`ImageUrl`, `p`.`Name`, `p`.`Price`, `p`.`Stock`
+FROM `Categories` AS `c`
+LEFT JOIN `Products` AS `p` ON `c`.`CategoryId` = `p`.`CategoryId`
+WHERE `c`.`CategoryId` <= 5
+ORDER BY `c`.`CategoryId`
+Information: 20101 - Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoryId`, `c`.`ImageUrl`, `c`.`Name`
+FROM `Categories` AS `c`
