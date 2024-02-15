@@ -4,11 +4,11 @@ using System.Linq.Expressions;
 
 namespace ApiCatalogo.Repositories
 {
-    public class Repository<T>: IRepository<T> where T : class
+    public class GenericRepository<T>: IGenericRepository<T> where T : class
     {
         protected readonly AppDbContext _context;
         
-        public Repository(AppDbContext context)
+        public GenericRepository(AppDbContext context)
         {
             _context = context;
         }

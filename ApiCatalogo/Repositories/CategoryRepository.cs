@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiCatalogo.Repositories
 {
-    public class CategoryRepository : Repository<Category> , ICategoryRepository
+    public class CategoryRepository : GenericRepository<Category> , ICategoryRepository
     {
         public CategoryRepository(AppDbContext context) : base (context) 
         {

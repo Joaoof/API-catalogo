@@ -2,7 +2,7 @@
 
 namespace ApiCatalogo.Interfaces
 {
-    public interface IRepository<T>
+    public interface IGenericRepository<T>
     {
         IEnumerable<T> GetAll();
 

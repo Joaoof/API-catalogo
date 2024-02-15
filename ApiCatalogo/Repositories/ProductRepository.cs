@@ -4,13 +4,13 @@ using ApiCatalogo.Models;
 
 namespace ApiCatalogo.Repositories
 {
-    public class ProductRepository : Repository<Product>, IProductRepository
+    public class ProductRepository : GenericRepository<Product>, IProductRepository
     {
         private readonly AppDbContext _context;
 
-        public ProductRepository(AppDbContext context)
+        public ProductRepository(AppDbContext context) : base(context)
         {
-            _context = context;
+ 
         }
 
         public IEnumerable<Product> GetProductsCategories(int id)
