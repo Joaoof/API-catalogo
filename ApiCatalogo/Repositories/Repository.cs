@@ -1,20 +1,21 @@
 ﻿using ApiCatalogo.Context;
 using ApiCatalogo.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace ApiCatalogo.Repositories
 {
-    public class GenericRepository<T>: IGenericRepository<T> where T : class
+    public class Repository<T>: IGenericRepository<T> where T : class
     {
         protected readonly AppDbContext _context;
         
-        public GenericRepository(AppDbContext context)
+        public Repository(AppDbContext context)
         {
             _context = context;
         }
         public IEnumerable<T> GetAll()
         {
-            return _context.Set<T>().ToList(); // O método Set<T>() é usado para obter um conjunto (ou tabela) de entidades do tipo T no contexto. Ele retorna um objeto do tipo DbSet<T>, que representa a coleção de entidades associadas a uma tabela específica no banco de dados.
+            return _context.Set<T>().AsNoTracking().ToList(); // O método Set<T>() é usado para obter um conjunto (ou tabela) de entidades do tipo T no contexto. Ele retorna um objeto do tipo DbSet<T>, que representa a coleção de entidades associadas a uma tabela específica no banco de dados.
         }
 
         public T? Get(Expression<Func<T, bool>> predicate)
@@ -25,7 +26,7 @@ namespace ApiCatalogo.Repositories
         public T Create(T entity)
         {
             _context.Set<T>().Add(entity);
-            _context.SaveChanges();
+            //_context.SaveChanges();
 
             return entity;
         }
@@ -33,7 +34,7 @@ namespace ApiCatalogo.Repositories
         public T Update(T entity)
         {
             _context.Set<T>().Update(entity);
-            _context.SaveChanges();
+            //_context.SaveChanges();
 
             return entity;
         }
@@ -41,7 +42,7 @@ namespace ApiCatalogo.Repositories
         public T Delete(T entity)
         {
             _context.Set<T>().Remove(entity);
-            _context.SaveChanges();
+            //_context.SaveChanges();
 
             return entity;
         }

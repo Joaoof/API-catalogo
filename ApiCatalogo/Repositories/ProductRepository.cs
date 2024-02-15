@@ -4,7 +4,7 @@ using ApiCatalogo.Models;
 
 namespace ApiCatalogo.Repositories
 {
-    public class ProductRepository : GenericRepository<Product>, IProductRepository
+    public class ProductRepository : Repository<Product>, IProductRepository
     {
         private readonly AppDbContext _context;
 
