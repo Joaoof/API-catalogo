@@ -1,4 +1,5 @@
 ﻿using ApiCatalogo.Context;
+using ApiCatalogo.DTOs;
 using ApiCatalogo.Interfaces;
 using ApiCatalogo.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,7 @@ namespace ApiCatalogo.Controllers
         }
 
         [HttpGet("products/{id}")]
-        public ActionResult <IEnumerable<Product>> GetProductsCategory(int id)
+        public ActionResult <IEnumerable<ProductDTO>> GetProductsCategory(int id)
         {
             var product = _unitOfWork.ProductRepository.GetProductsCategories(id);
 
@@ -32,7 +33,7 @@ namespace ApiCatalogo.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Product>> Get()
+        public ActionResult<IEnumerable<ProductDTO>> Get()
         {
             var products = _unitOfWork.ProductRepository.GetAll();
 
@@ -45,7 +46,7 @@ namespace ApiCatalogo.Controllers
         }
 
         [HttpGet("{id:int:min(1)}", Name="GetProduct")]
-        public ActionResult<Product> Get(int id)
+        public ActionResult<ProductDTO> Get(int id)
         {
             var product = _unitOfWork.ProductRepository.Get(c => c.ProductId == id);
 
@@ -58,10 +59,10 @@ namespace ApiCatalogo.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post([FromBody]Product product)
+        public ActionResult<ProductDTO> Post([FromBody]ProductDTO productDto)
         {
 
-            if (product is null)
+            if (productDto is null)
             {
                 return BadRequest();
             }
@@ -73,21 +74,21 @@ namespace ApiCatalogo.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public ActionResult Put(int id, [FromBody]Product product)
+        public ActionResult<ProductDTO> Put(int id, [FromBody]ProductDTO productDto)
         {
-            if (id != product.ProductId)
+            if (id != productDto.ProductId)
             {
                 return BadRequest();
             }
 
-            var productAtt = _unitOfWork.ProductRepository.Update(product);
+            var productAtt = _unitOfWork.ProductRepository.Update(productDto);
             _unitOfWork.Commit();
 
             return Ok(productAtt);
         }
 
         [HttpDelete]
-        public ActionResult<Product> Delete(int id)
+        public ActionResult<ProductDTO> Delete(int id)
         {
             var product = _unitOfWork.ProductRepository.Get(c => c.ProductId == id);
               
