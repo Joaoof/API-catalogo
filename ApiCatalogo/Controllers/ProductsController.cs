@@ -83,7 +83,6 @@ namespace ApiCatalogo.Controllers
             _unitOfWork.Commit();
 
             var newProductDto = _mapper.Map<ProductDTO>(newProduct);
-            Console.WriteLine(newProductDto);
 
             return new CreatedAtRouteResult("GetProduct", new { id = newProductDto.ProductId }, newProductDto);
         }

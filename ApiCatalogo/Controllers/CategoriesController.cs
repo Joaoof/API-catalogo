@@ -2,6 +2,7 @@
 using ApiCatalogo.DTOs.Mappings;
 using ApiCatalogo.Interfaces;
 using ApiCatalogo.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
 
@@ -14,11 +15,13 @@ namespace ApiCatalogo.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<CategoriesController> _logger;
+        private readonly IMapper _mapper;
 
-        public CategoriesController(IUnitOfWork unitOfWork, ILogger<CategoriesController> logger)
+        public CategoriesController(IUnitOfWork unitOfWork, ILogger<CategoriesController> logger, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -27,7 +30,12 @@ namespace ApiCatalogo.Controllers
 
             var categories = _unitOfWork.CategoryRepository.GetAll();
 
-            var categoriesDto = categories.ToCategoryDTOList();
+            if (categories is null)
+            {
+                return NotFound();
+            }
+
+            var categoriesDto = _mapper.Map<CategoryDTO>(categories);
 
             return Ok(categoriesDto);
         }
@@ -44,7 +52,7 @@ namespace ApiCatalogo.Controllers
                 return NotFound($"Category com o id= {id} not found");
             }
 
-            var categoryDto = category.ToCategoryDTO();
+            var categoryDto = _mapper.Map<CategoryDTO>(category);
 
             return Ok(categoryDto);
         }
@@ -58,12 +66,12 @@ namespace ApiCatalogo.Controllers
                 return BadRequest("Invalid Data");
             }
 
-            var category = categoryDto.ToCategory();
+            var category = _mapper.Map<Category>(categoryDto);
 
             var createCategory = _unitOfWork.CategoryRepository.Create(category);
             _unitOfWork.Commit();
 
-            var newCategoryDto = createCategory.ToCategoryDTO();
+            var newCategoryDto = _mapper.Map<CategoryDTO>(createCategory);
 
             return new CreatedAtRouteResult("GetCategory", new { id = newCategoryDto.CategoryId }, newCategoryDto);
         }
@@ -77,13 +85,13 @@ namespace ApiCatalogo.Controllers
                 return BadRequest("Invalid Data");
             }
 
-            var category = categoryDto.ToCategory();
+            var category = _mapper.Map<Category>(categoryDto);
 
 
             var categoryUpdate = _unitOfWork.CategoryRepository.Update(category);
             _unitOfWork.Commit();
 
-            var categoryUpdatedDto = category.ToCategoryDTO();
+            var categoryUpdatedDto = _mapper.Map<CategoryDTO>(categoryUpdate);
 
             return Ok(categoryUpdatedDto);
         }
@@ -102,7 +110,7 @@ namespace ApiCatalogo.Controllers
             var categoryDeleted = _unitOfWork.CategoryRepository.Delete(category);
             _unitOfWork.Commit();
 
-            var categoryExcludedDto = category.ToCategoryDTO();
+            var categoryExcludedDto = _mapper.Map<CategoryDTO>(categoryDeleted);
 
             return Ok(categoryExcludedDto);
         }
