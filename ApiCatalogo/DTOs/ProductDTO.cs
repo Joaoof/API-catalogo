@@ -7,9 +7,6 @@ namespace ApiCatalogo.DTOs
 {
     public class ProductDTO
     {
-        [Table("Products")]
-        public class Product
-        {
             [Key]
             public int ProductId { get; set; }
 
@@ -31,8 +28,6 @@ namespace ApiCatalogo.DTOs
             public string? ImageUrl { get; set; }
 
             public int CategoryId { get; set; } // Mapear para a coluna CategoryId de Category
-
-        }
     }
 
 }
