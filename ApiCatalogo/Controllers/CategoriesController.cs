@@ -1,4 +1,4 @@
-﻿using ApiCatalogo.DTOs;
+﻿using ApiCatalogo.DTOs.Categories;
 using ApiCatalogo.DTOs.Mappings;
 using ApiCatalogo.Interfaces;
 using ApiCatalogo.Models;

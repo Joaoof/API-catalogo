@@ -1,5 +1,5 @@
 ﻿using ApiCatalogo.Context;
-using ApiCatalogo.DTOs;
+using ApiCatalogo.DTOs.Products;
 using ApiCatalogo.Interfaces;
 using ApiCatalogo.Models;
 using AutoMapper;

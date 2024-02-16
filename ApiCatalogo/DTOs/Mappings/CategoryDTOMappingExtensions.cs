@@ -1,4 +1,5 @@
-﻿using ApiCatalogo.Models;
+﻿using ApiCatalogo.DTOs.Categories;
+using ApiCatalogo.Models;
 
 namespace ApiCatalogo.DTOs.Mappings
 {
