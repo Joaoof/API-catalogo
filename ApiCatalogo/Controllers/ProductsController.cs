@@ -2,6 +2,7 @@
 using ApiCatalogo.DTOs.Products;
 using ApiCatalogo.Interfaces;
 using ApiCatalogo.Models;
+using ApiCatalogo.Pagination;
 using AutoMapper;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -34,6 +35,16 @@ namespace ApiCatalogo.Controllers
             }
 
             // var destino = _mapper.Map<Destino>(origem);
+            var productsDto = _mapper.Map<IEnumerable<ProductDTO>>(products);
+
+            return Ok(productsDto);
+        }
+
+        [HttpGet("pagination")]
+        public ActionResult<IEnumerable<ProductDTO>> Get([FromQuery] ProductsParams productsParams)
+        {
+            var products = _unitOfWork.ProductRepository.GetProducts(productsParams);
+
             var productsDto = _mapper.Map<IEnumerable<ProductDTO>>(products);
 
             return Ok(productsDto);
