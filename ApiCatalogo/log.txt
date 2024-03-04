@@ -1108,3 +1108,17 @@ FROM `Products` AS `p`
 Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
 SELECT `p`.`ProductId`, `p`.`CategoryId`, `p`.`DataRegister`, `p`.`Description`, `p`.`ImageUrl`, `p`.`Name`, `p`.`Price`, `p`.`Stock`
 FROM `Products` AS `p`
+Information: 20101 - Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`ProductId`, `p`.`CategoryId`, `p`.`DataRegister`, `p`.`Description`, `p`.`ImageUrl`, `p`.`Name`, `p`.`Price`, `p`.`Stock`
+FROM `Products` AS `p`
+Information: 14 - Now listening on: https://localhost:7033
+Information: 14 - Now listening on: http://localhost:5240
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\joaod\source\repos\ApiCatalogo\ApiCatalogo
+Information: 20101 - Executed DbCommand (21ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`ProductId`, `p`.`CategoryId`, `p`.`DataRegister`, `p`.`Description`, `p`.`ImageUrl`, `p`.`Name`, `p`.`Price`, `p`.`Stock`
+FROM `Products` AS `p`
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`ProductId`, `p`.`CategoryId`, `p`.`DataRegister`, `p`.`Description`, `p`.`ImageUrl`, `p`.`Name`, `p`.`Price`, `p`.`Stock`
+FROM `Products` AS `p`

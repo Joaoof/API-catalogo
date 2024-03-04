@@ -1,6 +1,7 @@
 ﻿using ApiCatalogo.Context;
 using ApiCatalogo.Interfaces;
 using ApiCatalogo.Models;
+using ApiCatalogo.PagedList;
 using ApiCatalogo.Pagination;
 
 namespace ApiCatalogo.Repositories
@@ -14,10 +15,12 @@ namespace ApiCatalogo.Repositories
 
         }
 
-        public IEnumerable<Product> GetProducts(ProductsParams productsParams)
+        public PagedList<Product> GetProducts(ProductsParams productsParams)
         {
-            return GetAll().OrderBy(p => p.Name).Skip((productsParams.PageNumber - 1) * productsParams.PageSize).Take(productsParams.PageSize)
-                .ToList();
+            var products = GetAll().OrderBy(p => p.ProductId).AsQueryable();
+            var productsOrder = PagedList<Product>.ToPagedList(products, productsParams.PageNumber, productsParams.PageSize );
+
+            return productsOrder;
         } // A fórmula para calcular o índice inicial é: (número da página - 1) * tamanho da página. Por exemplo, se estamos na página 2 com 5 produtos por página, o índice inicial será: (2 - 1) * 5 = 5. Isso significa que vamos pular os primeiros 5 produtos.
 
         public IEnumerable<Product> GetProductsCategories(int id)

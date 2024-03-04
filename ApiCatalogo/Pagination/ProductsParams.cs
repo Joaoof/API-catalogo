@@ -1,23 +1,25 @@
-namespace ApiCatalogo.Pagination;
-
-public class ProductsParams
+namespace ApiCatalogo.Pagination
 {
-    const int maxPageSize = 50;
-
-    public int PageNumber { get; set; } = 1;
-
-    private int _pageSize;
-
-    public int PageSize
+    public class ProductsParams
     {
-        get
-        {
-            return _pageSize;
-        }
+        const int maxPageSize = 50;
 
-        set
+        public int PageNumber { get; set; } = 1;
+
+        private int _pageSize;
+
+        public int PageSize
         {
-            _pageSize = (value > maxPageSize) ? maxPageSize : value;
+            get
+            {
+                return _pageSize;
+            }
+
+            set
+            {
+                _pageSize = (value > maxPageSize) ? maxPageSize : value;
+            }
         }
     }
 }
+
