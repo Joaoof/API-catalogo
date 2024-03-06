@@ -6,7 +6,7 @@ namespace ApiCatalogo.Pagination
 
         public int PageNumber { get; set; } = 1;
 
-        private int _pageSize;
+        private int _pageSize = maxPageSize;
 
         public int PageSize
         {
